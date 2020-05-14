@@ -1,7 +1,6 @@
-module Test.Main where
+module Test.Spec.Discovery.Main where
 
 import Prelude
-
 import Effect (Effect)
 import Effect.Aff (launchAff_)
 import Test.Spec.Discovery (discover)
@@ -9,4 +8,6 @@ import Test.Spec.Reporter.Console (consoleReporter)
 import Test.Spec.Runner (runSpec)
 
 main :: Effect Unit
-main = discover "Test\\.Spec\\.Discovery.*Spec" >>= runSpec [consoleReporter] >>> launchAff_
+main =
+  launchAff_ do
+    discover "Test\\.Spec\\.Discovery\\.Specs\\.Discovery.*Spec" >>= runSpec [ consoleReporter ]

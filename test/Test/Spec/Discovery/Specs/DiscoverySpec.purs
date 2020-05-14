@@ -1,4 +1,4 @@
-module Test.Spec.DiscoverySpec where
+module Test.Spec.Discovery.Specs.DiscoverySpec where
 
 import Prelude
 import Test.Spec (Spec, describe, it)

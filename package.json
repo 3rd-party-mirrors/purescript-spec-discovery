@@ -18,6 +18,6 @@
     "spago": "^0.15.2"
   },
   "scripts": {
-    "test": "pnpx spago test --purs-args '-o output/ -g sourcemaps' -m Test.Main"
+    "test": "pnpx spago test --purs-args '-o output/ -g sourcemaps' -m Test.Spec.Discovery.Main"
   }
 }
