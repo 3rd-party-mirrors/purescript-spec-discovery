@@ -4,3 +4,9 @@
 /output/
 /.psci*
 /src/.webpack.js
+/pnpm-lock.yaml
+/.psc-ide-port
+/.purs-repl
+/.spago/
+/project.code-workspace
+/pnpm-debug.log
