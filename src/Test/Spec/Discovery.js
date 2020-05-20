@@ -9,23 +9,24 @@ if (typeof require !== "function") {
 var fs = require("fs");
 var path = require("path");
 
-function getMatchingModules(pattern) {
+function getMatchingModules(pattern, specProperty) {
   var directories = fs.readdirSync(path.join(__dirname, ".."));
+  var regexExp = new RegExp(pattern);
   return directories
     .filter(function (directory) {
-      return new RegExp(pattern).test(directory);
+      return regexExp.test(directory);
     })
     .map(function (name) {
       var module = require(path.join(__dirname, "..", name));
-      return module && typeof module.spec !== "undefined" ? module.spec : null;
+      return module && typeof module[specProperty] !== "undefined"
+        ? module[specProperty]
+        : null;
     })
     .filter(function (x) {
       return x;
     });
 }
 
-exports.getSpecs = function (pattern) {
-  return function () {
-    return getMatchingModules(pattern);
-  };
+exports.getSpecs = function(pattern, property){
+  return getMatchingModules(pattern, property);
 };

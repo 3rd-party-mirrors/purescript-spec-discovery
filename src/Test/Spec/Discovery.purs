@@ -2,17 +2,19 @@ module Test.Spec.Discovery (discover) where
 
 import Prelude
 import Data.Traversable (sequence_)
-import Effect (Effect)
 import Effect.Class (class MonadEffect, liftEffect)
-import Test.Spec (Spec)
+import Effect.Uncurried (EffectFn2, runEffectFn2)
+import Test.Spec (SpecT)
 
 foreign import getSpecs ::
-  String ->
-  Effect (Array (Spec Unit))
+  ∀ g i m a.
+  EffectFn2 String String (Array (SpecT g i m a))
 
 discover ::
-  forall m.
+  ∀ m g i m'.
   MonadEffect m =>
+  Applicative m' =>
   String ->
-  m (Spec Unit)
-discover pattern = getSpecs pattern >>= (pure <<< sequence_) # liftEffect
+  String ->
+  m (SpecT g i m' Unit)
+discover pattern property = runEffectFn2 getSpecs pattern property >>= (pure <<< sequence_) # liftEffect
